@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tvTimer, tvMathEq, tvScore, tvOption1, tvOption2, tvOption3, tvOption4;
     int selectedAns;
     Boolean uiVisible = false;
+    Boolean moveRight = true;
+    Boolean transitionStatus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startGame(View view) {
-        Log.i("Start Button", "Pressed");
-        if (uiVisible == false) {
+        //Log.i("Start Button", "Pressed");
+        if (uiVisible == false && transitionStatus == false) {
             showUi();
         } else {
             hideUi();
@@ -35,9 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void hideUi() {
         Log.i("UI", "Transition Out");
-        Boolean moveRight = true;
-        int leftTrans = -1500;
-        int rightTrans = 1500;
+        int leftTrans = 1500;
+        int rightTrans = -1500;
 
         tvTimer = findViewById(R.id.tvTimer);
         tvMathEq = findViewById(R.id.tvMathEq);
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         tvOption4 = findViewById(R.id.tvOption4);
 
         if (moveRight == true) {
+            Log.i("Transition", "Right");
             tvTimer.animate().translationXBy(leftTrans).setDuration(1000);
             tvMathEq.animate().translationXBy(leftTrans).setDuration(1000);
             tvScore.animate().translationXBy(leftTrans).setDuration(1000);
@@ -55,8 +57,9 @@ public class MainActivity extends AppCompatActivity {
             tvOption2.animate().translationXBy(rightTrans).setDuration(1000);
             tvOption3.animate().translationXBy(rightTrans).setDuration(1000);
             tvOption4.animate().translationXBy(rightTrans).setDuration(1000);
-            moveRight = false;
+            moveRight = true;
         } else {
+            Log.i("Transition", "Left");
             tvTimer.animate().translationXBy(rightTrans).setDuration(1000);
             tvMathEq.animate().translationXBy(rightTrans).setDuration(1000);
             tvScore.animate().translationXBy(rightTrans).setDuration(1000);
@@ -64,13 +67,14 @@ public class MainActivity extends AppCompatActivity {
             tvOption2.animate().translationXBy(leftTrans).setDuration(1000);
             tvOption3.animate().translationXBy(leftTrans).setDuration(1000);
             tvOption4.animate().translationXBy(leftTrans).setDuration(1000);
-            moveRight = true;
+            moveRight = false;
         }
+
+        uiVisible = false;
     }
 
     public void showUi() {
         Log.i("UI", "Transition In");
-        Boolean moveRight = true;
         int leftTrans = -1500;
         int rightTrans = 1500;
 
@@ -83,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         tvOption4 = findViewById(R.id.tvOption4);
 
         if (moveRight == true) {
+            Log.i("Transition", "Right");
             tvTimer.animate().translationXBy(leftTrans).setDuration(1000);
             tvMathEq.animate().translationXBy(leftTrans).setDuration(1000);
             tvScore.animate().translationXBy(leftTrans).setDuration(1000);
@@ -90,8 +95,9 @@ public class MainActivity extends AppCompatActivity {
             tvOption2.animate().translationXBy(rightTrans).setDuration(1000);
             tvOption3.animate().translationXBy(rightTrans).setDuration(1000);
             tvOption4.animate().translationXBy(rightTrans).setDuration(1000);
-            moveRight = false;
+            moveRight = true;
         } else {
+            Log.i("Transition", "Left");
             tvTimer.animate().translationXBy(rightTrans).setDuration(1000);
             tvMathEq.animate().translationXBy(rightTrans).setDuration(1000);
             tvScore.animate().translationXBy(rightTrans).setDuration(1000);
@@ -99,8 +105,10 @@ public class MainActivity extends AppCompatActivity {
             tvOption2.animate().translationXBy(leftTrans).setDuration(1000);
             tvOption3.animate().translationXBy(leftTrans).setDuration(1000);
             tvOption4.animate().translationXBy(leftTrans).setDuration(1000);
-            moveRight = true;
+            moveRight = false;
         }
+
+        uiVisible = true;
     }
 
     public void initPosition(int left, int right) {
